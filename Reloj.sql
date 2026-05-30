@@ -1,4 +1,5 @@
 CREATE DATABASE Reloj;
+GO
 
 USE Reloj;
 -- NIVEL 0: TABLAS PADRE (Sin dependencias)
@@ -125,8 +126,8 @@ GO
 
 CREATE TABLE [Reseña] (
   [id_reseña] int PRIMARY KEY,
-  [id_pedido] int,
-  [id_producto] int,
+  [id_pedido] int NOT NULL,
+  [id_producto] int NOT NULL,
   [contenido] text,
   [fecha_reseña] datetime,
   -- FK Compuesta: Apunta exactamente a la combinación Pedido+Producto
