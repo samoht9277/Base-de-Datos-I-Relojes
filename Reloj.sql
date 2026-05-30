@@ -23,15 +23,15 @@ CREATE TABLE [Empleado] (
 GO
 
 CREATE TABLE [Medio_Pago] (
-  [id_Medio_Pago] int PRIMARY KEY,
-  [Nombre_Pago] varchar(100)
+  [id_medio_pago] int PRIMARY KEY,
+  [nombre_pago] varchar(100)
 )
 GO
 
-CREATE TABLE [Proovedor] (
-  [id_proovedor] int PRIMARY KEY,
-  [nombre_proovedor] varchar(100),
-  [email_proovedor] varchar(100)
+CREATE TABLE [Proveedor] (
+  [id_proveedor] int PRIMARY KEY,
+  [nombre_proveedor] varchar(100),
+  [email_proveedor] varchar(100)
 )
 GO
 
@@ -65,7 +65,7 @@ CREATE TABLE [Factura] (
   [fecha_factura] datetime,
   [impuesto] int,
   [estado_factura] varchar(50),
-  [id_medio_pago] int FOREIGN KEY REFERENCES [Medio_Pago]([id_Medio_Pago])
+  [id_medio_pago] int FOREIGN KEY REFERENCES [Medio_Pago]([id_medio_pago])
 )
 GO
 
@@ -94,10 +94,10 @@ CREATE TABLE [Historial_Precios] (
 )
 GO
 
-CREATE TABLE [Producto_Proovedor] (
+CREATE TABLE [Producto_Proveedor] (
   [id_producto] int FOREIGN KEY REFERENCES [Producto]([id_producto]),
-  [id_proovedor] int FOREIGN KEY REFERENCES [Proovedor]([id_proovedor]),
-  PRIMARY KEY ([id_producto], [id_proovedor]) 
+  [id_proveedor] int FOREIGN KEY REFERENCES [Proveedor]([id_proveedor]),
+  PRIMARY KEY ([id_producto], [id_proveedor])
 )
 GO
 
