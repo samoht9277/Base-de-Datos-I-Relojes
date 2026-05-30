@@ -102,7 +102,7 @@ CREATE TABLE [Producto_Proveedor] (
 )
 GO
 
--- NIVEL 3 Y 4: CIRCUITO DE PEDIDOS Y RESEÑAS
+-- NIVEL 3 Y 4: CIRCUITO DE PEDIDOS Y RESENAS
 
 
 CREATE TABLE [Pedido] (
@@ -124,13 +124,13 @@ CREATE TABLE [Pedido_Producto] (
 )
 GO
 
-CREATE TABLE [Reseña] (
-  [id_reseña] int PRIMARY KEY,
+CREATE TABLE [Resena] (
+  [id_resena] int PRIMARY KEY,
   [id_pedido] int NOT NULL,
   [id_producto] int NOT NULL,
   [contenido] text,
-  [fecha_reseña] datetime,
-  -- FK Compuesta: Apunta exactamente a la combinación Pedido+Producto
+  [fecha_resena] datetime,
+  -- FK Compuesta: Apunta exactamente a la combinacion Pedido+Producto
   FOREIGN KEY ([id_pedido], [id_producto]) REFERENCES [Pedido_Producto]([id_pedido], [id_producto])
 )
 GO
