@@ -134,17 +134,3 @@ CREATE TABLE [Reseña] (
   FOREIGN KEY ([id_pedido], [id_producto]) REFERENCES [Pedido_Producto]([id_pedido], [id_producto])
 )
 GO
-
--- CARGA DE DATOS DE PRUEBA (MOCK DATA)
-
-INSERT INTO [Marca] ([id_marca], [nombre_marca])
-VALUES  (1, 'Casio');
-GO
-
-INSERT INTO [Producto] ([id_producto], [nombre_reloj], [precio], [stock], [meses_garantia], [id_marca])
-VALUES  (100, 'G-Shock', 150000, 3, 12, 1);
-GO
-
-INSERT INTO [Historial_Precios] ([id_historial], [id_producto], [precio_anterior], [precio_nuevo], [fecha_cambio])
-VALUES  (1, 100, 130000, 150000, '2026-05-01T10:00:00');
-GO
