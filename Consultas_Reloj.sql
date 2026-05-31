@@ -1,4 +1,4 @@
-USE Reloj;
+﻿USE Reloj;
 GO
 -------------------------------------------
 ----        CLIENTE     -------------------
@@ -62,13 +62,13 @@ ORDER BY
 ----        PROVEEDORES       -------------
 -------------------------------------------
 
-SELECT nombre_proovedor AS Nombre FROM Proovedor
-ORDER BY nombre_proovedor ASC;
+SELECT nombre_proveedor AS Nombre FROM Proveedor
+ORDER BY nombre_proveedor ASC;
 
 SELECT 
-    nombre_proovedor AS Proveedor_Local, 
-    email_proovedor AS Contacto
+    nombre_proveedor AS Proveedor_Local, 
+    email_proveedor AS Contacto
 FROM 
-    Proovedor
+    Proveedor
 WHERE 
-    email_proovedor LIKE '%.ar%';
+    email_proveedor LIKE '%.ar%';
