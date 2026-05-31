@@ -1,4 +1,4 @@
-USE Reloj;
+﻿USE Reloj;
 
 -- CARGA DE DATOS DE PRUEBA (MOCK DATA)
 -- TABLA: Provincia
@@ -16,7 +16,7 @@ INSERT INTO [Marca] ([id_marca], [nombre_marca]) VALUES
 GO
 
 -- TABLA: Medio_Pago
-INSERT INTO [Medio_Pago] ([id_Medio_Pago], [Nombre_Pago]) VALUES
+INSERT INTO [Medio_Pago] ([id_medio_pago], [nombre_pago]) VALUES
 (1, 'Efectivo'), (2, 'Transferencia Bancaria'), (3, 'Tarjeta de Crédito - Visa'), 
 (4, 'Tarjeta de Crédito - Mastercard'), (5, 'Tarjeta de Crédito - Amex'), 
 (6, 'Tarjeta de Débito - Visa'), (7, 'Tarjeta de Débito - Maestro'), 
