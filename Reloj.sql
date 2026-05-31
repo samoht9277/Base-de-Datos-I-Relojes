@@ -1,4 +1,4 @@
-CREATE DATABASE Reloj;
+﻿CREATE DATABASE Reloj;
 GO
 
 USE Reloj;
