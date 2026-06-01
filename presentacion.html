@@ -354,6 +354,24 @@ h2{color:var(--ink);font-weight:700;font-size:33px;line-height:1.12;letter-spaci
       </div>
     </section>
 
+    <!-- DESPLIEGUE -->
+    <section class="slide" data-title="Despliegue">
+      <div class="shead">
+        <div class="kicker r">05 · Implementación</div>
+        <h2 class="r" style="--d:.06s">Estrategia de Despliegue</h2>
+        <p class="lead r" style="--d:.12s">El sistema se despliega en capas: base de datos, aplicación y un circuito DevOps que versiona, despliega, respalda y monitorea.</p>
+        <div class="hairline r-draw" style="--d:.2s"></div>
+      </div>
+      <div class="grid c3">
+        <div class="card r" style="--d:.26s"><div class="dot"></div><h3>Servidor de Base de Datos</h3><p>Instancia de MS SQL Server (local o Azure SQL). Se inicializa corriendo los scripts en orden: esquema → datos → procedimientos → vistas → triggers.</p></div>
+        <div class="card r" style="--d:.32s"><div class="dot"></div><h3>Versionado con Git</h3><p>Todo el código SQL vive en GitHub como única fuente de verdad: cambios versionados, revisables y reproducibles.</p></div>
+        <div class="card r" style="--d:.38s"><div class="dot"></div><h3>CI/CD desde GitHub</h3><p>Un pipeline de GitHub Actions aplica los scripts y despliega los cambios automáticamente en cada push a la rama main.</p></div>
+        <div class="card r" style="--d:.44s"><div class="dot"></div><h3>Aplicación / UI</h3><p>Interfaz que consume la base por connection string, con entornos separados de desarrollo y producción.</p></div>
+        <div class="card r" style="--d:.5s"><div class="dot"></div><h3>Política de Backups</h3><p>Respaldo <b>full</b> periódico, <b>incremental</b> (diferencial) diario y de <b>logs</b> de transacciones para recuperación point-in-time.</p></div>
+        <div class="card r" style="--d:.56s"><div class="dot"></div><h3>Métricas con Grafana</h3><p>Dashboards en Grafana para monitorear rendimiento, uso y salud de la base en tiempo real.</p></div>
+      </div>
+    </section>
+
     <!-- MENSAJE FINAL -->
     <section class="slide" data-title="Mensaje Final">
       <div class="shead">
