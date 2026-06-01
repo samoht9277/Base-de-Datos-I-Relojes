@@ -56,6 +56,9 @@ h2{color:var(--ink);font-weight:700;font-size:33px;line-height:1.12;letter-spaci
 .card .dot{width:26px;height:3px;border-radius:3px;background:var(--accent);margin-bottom:16px}
 .card .badge{display:inline-block;font-size:12px;font-weight:700;color:#fff;background:var(--accent);
   border-radius:6px;padding:3px 10px;margin-bottom:14px;letter-spacing:.04em}
+.card .fname{display:inline-block;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11.5px;
+  color:var(--accent);background:var(--accent-soft);border:1px solid var(--line-2);border-radius:6px;
+  padding:3px 9px;margin-bottom:13px}
 .card h3{font-size:16.5px;font-weight:700;color:var(--ink);margin-bottom:8px}
 .card p{font-size:13.5px;line-height:1.55;color:var(--body)}
 
@@ -121,7 +124,6 @@ h2{color:var(--ink);font-weight:700;font-size:33px;line-height:1.12;letter-spaci
 /* ===== HERO (Q / Gracias) ===== */
 .center-hero{flex:1;display:flex;flex-direction:column;justify-content:center}
 .center-hero h2.big{font-size:62px;font-weight:700}
-.qgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:42px}
 
 /* ===== STATS ===== */
 .stats{display:flex;gap:56px;margin-top:34px}
@@ -254,13 +256,13 @@ h2{color:var(--ink);font-weight:700;font-size:33px;line-height:1.12;letter-spaci
     <!-- 5 · DER (conceptual) -->
     <section class="slide derslide" data-title="DER conceptual">
       <div class="kicker r">03 · Diseño</div>
-      <h2 class="r" style="--d:.05s;font-size:28px;margin-top:8px">Modelo Entidad-Relación <span style="color:var(--muted);font-weight:400">(conceptual)</span></h2>
+      <h2 class="r" style="--d:.05s;font-size:28px;margin-top:8px">Diagrama Entidad-Relación <span style="color:var(--muted);font-weight:400">(conceptual)</span></h2>
       <div class="erd-legend r-fade" style="--d:.12s">
         <span class="lg"><span class="der-ent"></span> <b>Entidad</b></span>
         <span class="lg"><span class="der-rel"></span> <b>Relación</b></span>
         <span class="lg"><b>1 · N · M</b> Cardinalidad</span>
         <span class="lg"><span class="der-weak"></span> <b>Entidad débil</b></span>
-        <span class="lg">vista conceptual · sin claves foráneas ni tablas intermedias</span>
+        <span class="lg">vista conceptual</span>
       </div>
       <div id="derWrap" class="r-fade" style="--d:.18s"></div>
     </section>
@@ -288,11 +290,11 @@ h2{color:var(--ink);font-weight:700;font-size:33px;line-height:1.12;letter-spaci
         <div class="hairline r-draw" style="--d:.2s"></div>
       </div>
       <div class="grid c3">
-        <div class="card r" style="--d:.26s"><span class="badge">1FN</span><h3>Primera Forma Normal</h3><p>Cada celda contiene un único valor atómico. Sin listas ni grupos repetidos dentro de una columna.</p></div>
+        <div class="card r" style="--d:.26s"><span class="badge">1FN</span><h3>Primera Forma Normal</h3><p>Cada celda contiene un único valor atómico e indivisible por columna.</p></div>
         <div class="card r" style="--d:.32s"><span class="badge">2FN</span><h3>Segunda Forma Normal</h3><p>Cumple 1FN y cada atributo depende de la clave primaria completa, no de una parte de ella.</p></div>
         <div class="card r" style="--d:.38s"><span class="badge">3FN</span><h3>Tercera Forma Normal</h3><p>Cumple 2FN y no hay dependencias transitivas: los atributos dependen solo de la clave, no de otros campos no clave.</p></div>
       </div>
-      <div class="note-strip r-fade" style="--d:.46s">Resultado: menos redundancia, sin anomalías de inserción, actualización o borrado, e integridad garantizada. Ej.: el historial de precios vive en su propia tabla, no dentro de Producto.</div>
+      <div class="note-strip r-fade" style="--d:.46s">Resultado: menos redundancia e integridad garantizada. Ej.: el historial de precios vive en su propia tabla, no dentro de Producto.</div>
     </section>
 
     <!-- 7 · SCRUM -->
@@ -321,19 +323,21 @@ h2{color:var(--ink);font-weight:700;font-size:33px;line-height:1.12;letter-spaci
       <div class="note-strip r-fade" style="--d:.44s">Ciclos de 7 días con entregables incrementales y revisión continua de calidad.</div>
     </section>
 
-    <!-- 8 · COMPONENTES -->
-    <section class="slide" data-title="Componentes Técnicos">
+    <!-- ENTREGABLES / SCRIPTS -->
+    <section class="slide" data-title="Entregables">
       <div class="shead">
-        <div class="kicker r">Profundidad Técnica</div>
-        <h2 class="r" style="--d:.06s">Componentes Técnicos Adicionales</h2>
-        <div class="hairline r-draw" style="--d:.14s"></div>
+        <div class="kicker r">Entregables</div>
+        <h2 class="r" style="--d:.06s">Scripts del Proyecto</h2>
+        <p class="lead r" style="--d:.12s">El proyecto se entrega como un conjunto de scripts SQL versionados en el repositorio:</p>
+        <div class="hairline r-draw" style="--d:.2s"></div>
       </div>
       <div class="grid c4">
-        <div class="card r" style="--d:.2s"><div class="dot"></div><h3>Stored Procedures</h3><p>Operaciones críticas: registrar ventas, actualizar stock y generar reportes.</p></div>
-        <div class="card r" style="--d:.26s"><div class="dot"></div><h3>Triggers de Validación</h3><p>Registro automático en Historial_Precios ante cada cambio de precio.</p></div>
-        <div class="card r" style="--d:.32s"><div class="dot"></div><h3>Vistas</h3><p>Consultas pre-armadas para dashboards de ventas y stock.</p></div>
-        <div class="card r" style="--d:.38s"><div class="dot"></div><h3>Jobs Programados</h3><p>Respaldos, limpieza de datos y alertas de stock bajo.</p></div>
+        <div class="card r" style="--d:.26s"><div class="fname">Reloj.sql</div><h3>Esquema de Base de Datos</h3><p>Las 14 tablas con claves primarias, foráneas y restricciones, normalizado a 3FN.</p></div>
+        <div class="card r" style="--d:.32s"><div class="fname">BaseDato.sql</div><h3>Carga de Datos</h3><p>Datos de prueba: 10 provincias, 40 relojes, clientes, pedidos, facturas y reseñas.</p></div>
+        <div class="card r" style="--d:.38s"><div class="fname">Consultas_Reloj.sql</div><h3>Consultas de Ejemplo</h3><p>Queries sobre el modelo: joins y reportes de ventas, stock y proveedores.</p></div>
+        <div class="card r" style="--d:.44s"><div class="fname">Procedimientos_Reloj.sql</div><h3>Procedimientos Almacenados</h3><p>3 stored procedures <b>ya implementados</b>: registrar venta (transaccional, con control de stock), actualizar precio y reporte por cliente.</p></div>
       </div>
+      <div class="note-strip r-fade" style="--d:.5s">Próximo entregable: <b>Triggers.sql</b> — disparadores de validación (p. ej. registro automático en Historial_Precios ante cambios de precio).</div>
     </section>
 
     <!-- 9 · ROADMAP -->
@@ -350,21 +354,7 @@ h2{color:var(--ink);font-weight:700;font-size:33px;line-height:1.12;letter-spaci
       </div>
     </section>
 
-    <!-- 10 · PREGUNTAS -->
-    <section class="slide" data-title="Preguntas">
-      <div class="center-hero">
-        <div class="kicker r">Espacio Abierto</div>
-        <h2 class="big r" style="--d:.1s">¿Preguntas?</h2>
-        <p class="lead r" style="--d:.2s">Estamos disponibles para responder consultas, recibir sugerencias técnicas y discutir cualquier aspecto del proyecto propuesto.</p>
-        <div class="qgrid">
-          <div class="card r" style="--d:.28s"><div class="dot"></div><h3>Aspectos Técnicos</h3><p>Arquitectura, normalización y FK compuestas.</p></div>
-          <div class="card r" style="--d:.34s"><div class="dot"></div><h3>Metodología SCRUM</h3><p>Sprints, roles, ceremonias y artefactos.</p></div>
-          <div class="card r" style="--d:.4s"><div class="dot"></div><h3>Alcance del Proyecto</h3><p>Funcionalidades, cronograma y entregables.</p></div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 11 · MENSAJE FINAL -->
+    <!-- MENSAJE FINAL -->
     <section class="slide" data-title="Mensaje Final">
       <div class="shead">
         <div class="kicker r">Cierre</div>
@@ -465,7 +455,7 @@ h2{color:var(--ink);font-weight:700;font-size:33px;line-height:1.12;letter-spaci
       Factura:{x:702,y:20,cols:[['id_factura','pk'],['fecha_factura'],['impuesto'],['estado_factura'],['id_medio_pago','fk']]},
       Cliente:{x:702,y:150,cols:[['id_cliente','pk'],['nombre_cliente'],['apellido_cliente'],['email_cliente'],['telefono_cliente'],['cuit_cliente'],['calle_direccion'],['altura_direccion'],['id_localidad','fk']]},
       Empleado:{x:702,y:320,cols:[['id_empleado','pk'],['apellido_empleado'],['nombre_empleado']]},
-      Medio_Pago:{x:874,y:40,cols:[['id_Medio_Pago','pk'],['Nombre_Pago']]},
+      Medio_Pago:{x:874,y:40,cols:[['id_medio_pago','pk'],['nombre_pago']]},
       Localidad:{x:874,y:170,cols:[['id_localidad','pk'],['nombre_localidad'],['codigo_postal'],['id_provincia','fk']]},
       Provincia:{x:1046,y:185,cols:[['id_provincia','pk'],['nombre_provincia']]}
     };
