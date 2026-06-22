@@ -1,37 +1,46 @@
 ﻿USE Reloj;
+GO
 
--- CARGA DE DATOS DE PRUEBA (MOCK DATA)
--- TABLA: Provincia
-INSERT INTO [Provincia] ([id_provincia], [nombre_provincia]) VALUES
+-- ============================================================
+-- CARGA DE DATOS DE PRUEBA - Relojería
+-- Requiere haber corrido antes Reloj.sql (la estructura).
+-- ============================================================
+
+
+-- ============================================================
+-- NIVEL 0: TABLAS PADRE
+-- ============================================================
+-- Provincia
+INSERT INTO Provincia (id_provincia, nombre_provincia) VALUES
 (1, 'Buenos Aires'), (2, 'Córdoba'), (3, 'Santa Fe'), (4, 'Mendoza'), 
 (5, 'Tucumán'), (6, 'Salta'), (7, 'Neuquén'), (8, 'Río Negro'), 
 (9, 'Chubut'), (10, 'Tierra del Fuego');
 GO
 
--- TABLA: Marca
-INSERT INTO [Marca] ([id_marca], [nombre_marca]) VALUES
+-- Marca
+INSERT INTO Marca (id_marca, nombre_marca) VALUES
 (1, 'Casio'), (2, 'Rolex'), (3, 'Omega'), (4, 'Seiko'), 
 (5, 'Tag Heuer'), (6, 'Garmin'), (7, 'Tissot'), (8, 'Citizen'), 
 (9, 'Fossil'), (10, 'Orient');
 GO
 
--- TABLA: Medio_Pago
-INSERT INTO [Medio_Pago] ([id_medio_pago], [nombre_pago]) VALUES
+-- Medio_Pago
+INSERT INTO Medio_Pago (id_medio_pago, nombre_pago) VALUES
 (1, 'Efectivo'), (2, 'Transferencia Bancaria'), (3, 'Tarjeta de Crédito - Visa'), 
 (4, 'Tarjeta de Crédito - Mastercard'), (5, 'Tarjeta de Crédito - Amex'), 
 (6, 'Tarjeta de Débito - Visa'), (7, 'Tarjeta de Débito - Maestro'), 
 (8, 'Mercado Pago'), (9, 'PayPal'), (10, 'Criptomonedas (USDT)');
 GO
 
--- TABLA: Empleado
-INSERT INTO [Empleado] ([id_empleado], [apellido_empleado], [nombre_empleado]) VALUES
+-- Empleado
+INSERT INTO Empleado (id_empleado, apellido_empleado, nombre_empleado) VALUES
 (1, 'Fresca', 'Nicolas'), (2, 'Otero', 'Tomas'), (3, 'Gomez', 'Martin'), 
 (4, 'Perez', 'Lucia'), (5, 'Fernandez', 'Julieta'), (6, 'Lopez', 'Carlos'), 
 (7, 'Martinez', 'Sofia'), (8, 'Rodriguez', 'Diego'), (9, 'Sanchez', 'Micaela'), 
 (10, 'Romero', 'Facundo');
 GO
 
-INSERT INTO [Proveedor] ([id_proveedor], [nombre_proveedor], [email_proveedor]) VALUES
+INSERT INTO Proveedor (id_proveedor, nombre_proveedor, email_proveedor) VALUES
 (1, 'Distribuidora Casio Arg', 'ventas@casio.com.ar'),
 (2, 'Rolex Swiss Imports', 'import@rolex.ch'),
 (3, 'Grupo Omega SA', 'contacto@omega.com.ar'),
@@ -44,10 +53,10 @@ INSERT INTO [Proveedor] ([id_proveedor], [nombre_proveedor], [email_proveedor]) 
 (10, 'Orient Vintage', 'info@orient.com.ar');
 GO
 
--- ==========================================
+-- ============================================================
 -- NIVEL 1: DEPENDENCIAS DE PRIMER GRADO
--- ==========================================
-INSERT INTO [Localidad] ([id_localidad], [nombre_localidad], [codigo_postal], [id_provincia]) VALUES
+-- ============================================================
+INSERT INTO Localidad (id_localidad, nombre_localidad, codigo_postal, id_provincia) VALUES
 (1, 'La Plata', '1900', 1),
 (2, 'Mar del Plata', '7600', 1),
 (3, 'Villa Carlos Paz', '5152', 2),
@@ -61,10 +70,10 @@ INSERT INTO [Localidad] ([id_localidad], [nombre_localidad], [codigo_postal], [i
 GO
 
 -- id_marca: 1=Casio, 2=Rolex, 3=Omega, 4=Seiko, 5=Tag, 6=Garmin, 7=Tissot, 8=Citizen, 9=Fossil, 10=Orient
--- ==========================================
+-- ============================================================
 -- CARGA DE CATÁLOGO COMPLETO (40 Relojes)
--- ==========================================
-INSERT INTO [Producto] ([id_producto], [nombre_reloj], [precio], [movimiento], [diametro], [estilo], [num_serie], [ref_modelo], [stock], [meses_garantia], [id_marca]) VALUES
+-- ============================================================
+INSERT INTO Producto (id_producto, nombre_reloj, precio, movimiento, diametro, estilo, num_serie, ref_modelo, stock, meses_garantia, id_marca) VALUES
 -- Marca 1: Casio
 (1, 'G-Shock Mudmaster', 250000, 'Cuarzo', 55.3, 'Deportivo', 1001, 'GWG-1000', 10, 12, 1),
 (11, 'Edifice Bluetooth', 320000, 'Cuarzo', 45.6, 'Racing', 1011, 'ECB-2000', 12, 12, 1),
@@ -125,10 +134,9 @@ INSERT INTO [Producto] ([id_producto], [nombre_reloj], [precio], [movimiento], [
 (27, 'Sun and Moon V3', 450000, 'Automático', 42.5, 'Clásico', 1027, 'RA-AK0008S', 7, 12, 10),
 (40, 'Mako III', 350000, 'Automático', 41.8, 'Buceo', 1040, 'RA-AA0002L', 8, 12, 10);
 GO
-GO
 
 -- id_medio_pago: 1=Efectivo, 2=Transferencia, 3=Visa Credito, etc.
-INSERT INTO [Factura] ([id_factura], [fecha_factura], [impuesto], [estado_factura], [id_medio_pago]) VALUES
+INSERT INTO Factura (id_factura, fecha_factura, impuesto, estado_factura, id_medio_pago) VALUES
 (1, '2026-05-10T10:30:00', 21, 'Pagado', 3),
 (2, '2026-05-11T14:15:00', 21, 'Pendiente', 2),
 (3, '2026-05-12T16:45:00', 21, 'Pagado', 1),
@@ -141,10 +149,10 @@ INSERT INTO [Factura] ([id_factura], [fecha_factura], [impuesto], [estado_factur
 (10, '2026-05-19T17:40:00', 21, 'Pagado', 3);
 GO
 
--- ==========================================
+-- ============================================================
 -- NIVEL 2: DEPENDENCIAS DE SEGUNDO GRADO
--- ==========================================
-INSERT INTO [Cliente] ([id_cliente], [nombre_cliente], [apellido_cliente], [email_cliente], [telefono_cliente], [cuit_cliente], [calle_direccion], [altura_direccion], [id_localidad]) VALUES
+-- ============================================================
+INSERT INTO Cliente (id_cliente, nombre_cliente, apellido_cliente, email_cliente, telefono_cliente, cuit_cliente, calle_direccion, altura_direccion, id_localidad) VALUES
 (1, 'Tomas', 'Otero', 'tomas@email.com', 11445566, 20334455, 'Av. Cabildo', 2500, 1),
 (2, 'Franco', 'Salazar', 'profe@uade.edu.ar', 11223344, 20112233, 'Lima', 757, 1),
 (3, 'Lionel', 'Messi', 'leo@miami.com', 11998877, 20998877, 'Costanera Norte', 10, 4),
@@ -158,7 +166,7 @@ INSERT INTO [Cliente] ([id_cliente], [nombre_cliente], [apellido_cliente], [emai
 GO
 
 -- Registramos un cambio de precio para los 10 relojes (ej. inflación)
-INSERT INTO [Historial_Precios] ([id_historial], [id_producto], [precio_anterior], [precio_nuevo], [fecha_cambio]) VALUES
+INSERT INTO Historial_Precios (id_historial, id_producto, precio_anterior, precio_nuevo, fecha_cambio) VALUES
 (1, 1, 200000, 250000, '2026-04-01T00:00:00'),
 (2, 2, 14000000, 15000000, '2026-04-15T00:00:00'),
 (3, 3, 8000000, 8500000, '2026-04-20T00:00:00'),
@@ -172,15 +180,15 @@ INSERT INTO [Historial_Precios] ([id_historial], [id_producto], [precio_anterior
 GO
 
 -- Relacionamos qué proveedor trae qué producto
-INSERT INTO [Producto_Proveedor] ([id_producto], [id_proveedor]) VALUES
+INSERT INTO Producto_Proveedor (id_producto, id_proveedor) VALUES
 (1, 1), (2, 2), (3, 3), (4, 4), (5, 5), 
 (6, 6), (7, 7), (8, 8), (9, 9), (10, 10);
 GO
 
--- ==========================================
+-- ============================================================
 -- NIVEL 3 Y 4: CIRCUITO DE PEDIDOS Y RESEÑAS
--- ==========================================
-INSERT INTO [Pedido] ([id_pedido], [fecha_pedido], [fecha_entrega], [num_factura], [id_cliente], [id_empleado]) VALUES
+-- ============================================================
+INSERT INTO Pedido (id_pedido, fecha_pedido, fecha_entrega, num_factura, id_cliente, id_empleado) VALUES
 (1, '2026-05-10T10:30:00', '2026-05-12T10:30:00', 1, 1, 1),
 (2, '2026-05-11T14:15:00', NULL, 2, 2, 2),
 (3, '2026-05-12T16:45:00', '2026-05-14T10:00:00', 3, 3, 3),
@@ -194,7 +202,7 @@ INSERT INTO [Pedido] ([id_pedido], [fecha_pedido], [fecha_entrega], [num_factura
 GO
 
 -- Acá "congelamos" el precio al momento de la venta
-INSERT INTO [Pedido_Producto] ([id_pedido], [id_producto], [cantidad_comprada], [precio_venta_historico]) VALUES
+INSERT INTO Pedido_Producto (id_pedido, id_producto, cantidad_comprada, precio_venta_historico) VALUES
 (1, 1, 1, 250000),
 (2, 2, 1, 15000000),
 (3, 3, 1, 8500000),
@@ -208,7 +216,7 @@ INSERT INTO [Pedido_Producto] ([id_pedido], [id_producto], [cantidad_comprada], 
 GO
 
 -- Las reseñas deben apuntar a la combinación exacta del pedido y el producto vendido
-INSERT INTO [Reseña] ([id_reseña], [id_pedido], [id_producto], [contenido], [fecha_reseña]) VALUES
+INSERT INTO Reseña (id_reseña, id_pedido, id_producto, contenido, fecha_reseña) VALUES
 (1, 1, 1, 'Excelente reloj, resiste todo. Lo metí en el barro y sigue perfecto.', '2026-05-15T10:00:00'),
 (2, 2, 2, 'Una joya absoluta. El profe Salazar me puso un 10 por llevarlo puesto.', '2026-05-20T12:00:00'),
 (3, 3, 3, 'Increíble cronógrafo, vale cada peso.', '2026-05-18T09:30:00'),
