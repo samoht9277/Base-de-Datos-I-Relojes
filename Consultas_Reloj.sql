@@ -1,6 +1,44 @@
 USE Reloj;
 GO
 
+---------VISTA--------------
+
+CREATE VIEW Venta_empleado AS
+SELECT 
+    CAST(e.nombre_empleado AS varchar) + ' ' + CAST(e.apellido_empleado AS varchar) AS Empleado_Productivo,
+    COUNT(p.id_pedido) AS Cantidad_Ventas_Gestionadas
+FROM 
+    Empleado e
+INNER JOIN 
+    Pedido p ON e.id_empleado = p.id_empleado
+GROUP BY 
+    e.id_empleado,
+    e.nombre_empleado,
+    e.apellido_empleado;
+
+GO
+
+
+CREATE VIEW Cliente_total_gastado AS
+SELECT nombre_cliente + ' , ' + apellido_cliente AS VIP_cliente,
+	   SUM(PP.cantidad_comprada * PP.precio_venta_historico) AS Total_Gastado
+FROM Cliente C
+INNER JOIN Pedido P ON C.id_cliente = P.id_cliente
+INNER JOIN Pedido_Producto PP ON P.id_pedido = PP.id_pedido
+GROUP BY 
+    C.id_cliente, 
+    C.nombre_cliente, 
+    C.apellido_cliente;
+
+GO
+
+SELECT * FROM Cliente_total_gastado
+ORDER BY Total_Gastado DESC;
+
+
+GO
+
+---------CONSULTAS-------------
 -- C1: Contacto de clientes por localidad
 SELECT email_cliente AS Email,
        CAST(telefono_cliente AS varchar) AS Telefono,
@@ -93,76 +131,40 @@ ORDER BY p.stock ASC;
 GO
 
 
----------VISTA--------------
-CREATE VIEW Venta_empleado AS
-SELECT 
-    CAST(e.nombre_empleado AS varchar) + ' ' + CAST(e.apellido_empleado AS varchar) AS Empleado_Productivo,
-    COUNT(p.id_pedido) AS Cantidad_Ventas_Gestionadas
-FROM 
-    Empleado e
-INNER JOIN 
-    Pedido p ON e.id_empleado = p.id_empleado
-GROUP BY 
-    e.id_empleado,
-    e.nombre_empleado,
-    e.apellido_empleado;
-
-GO
 
 
-CREATE VIEW Cliente_total_gastado AS
-SELECT nombre_cliente + ' , ' + apellido_cliente AS VIP_cliente,
-	   SUM(PP.cantidad_comprada * PP.precio_venta_historico) AS Total_Gastado
-FROM Cliente C
-INNER JOIN Pedido P ON C.id_cliente = P.id_cliente
-INNER JOIN Pedido_Producto PP ON P.id_pedido = PP.id_pedido
-GROUP BY 
-    C.id_cliente, 
-    C.nombre_cliente, 
-    C.apellido_cliente;
 
-GO
-
-SELECT * FROM Cliente_total_gastado
-ORDER BY Total_Gastado DESC;
-
-
-GO
-
-
---------------------------------------------------------------
+----------------------TRIGGERS---------------------------
 
        
-CREATE TRIGGER agregar_cliente
+CREATE TRIGGER trg_Validar_Email_Cliente
 ON Cliente
 AFTER INSERT
 AS
 BEGIN
-    UPDATE Cliente
-    SET id_cliente = id_cliente + 1
-    
-END
+    IF EXISTS (SELECT * FROM INSERTED WHERE email_cliente NOT LIKE '%@%.%')
+    BEGIN
+        RAISERROR('El email ingresado no tiene un formato válido.', 16, 1);
+        ROLLBACK TRANSACTION;
+    END
+END;
 
-INSERT INTO Cliente(id_cliente, nombre_cliente,apellido_cliente,email_cliente,telefono_cliente,cuit_cliente,calle_direccion,altura_direccion,id_localidad)
-( 'Polenta', 'Otero', 'Polenta@email.com', 11445578, 20334467, 'av.cordoba', 2505, 1),
-
-
-GO
 
 CREATE TRIGGER trg_Evitar_Precio_Negativo
 ON Producto
 AFTER UPDATE
 AS
 BEGIN
-   
-    IF EXISTS (SELECT * FROM INSERTED WHERE precio < 0) --si el precio insertado es menor a 0
+    IF EXISTS (SELECT * FROM INSERTED WHERE precio < 0)
     BEGIN
-    
-        RAISERROR('el precio no puede ser menor a cero', 16, 1); -- si es asi marca error
-        
-       
+        RAISERROR('El precio no puede ser menor a cero.', 16, 1);
         ROLLBACK TRANSACTION;
     END
 END;
 
+-- Caso de prueba para el trigger de validación de email
+INSERT INTO Cliente (id_cliente, nombre_cliente, apellido_cliente, email_cliente, telefono_cliente, cuit_cliente, calle_direccion, altura_direccion, id_localidad)
+VALUES (999, 'Test', 'Trigger', 'emailsinarroba', 1134567890, 20999999, 'Calle Falsa', 123, 1);
+
+--- Caso de prueba para el trigger de validación de precio
 UPDATE Producto SET precio = -500 WHERE id_producto = 1;
